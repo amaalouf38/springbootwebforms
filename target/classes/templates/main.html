@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students and their courses.</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>       
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+</head>
+<body>
+<h2>List of Students and their courses:</h2>
+    <table id="usersTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>courses</th>
+            </tr>
+        </thead>
+    </table>
+    
+    <script>
+    $(document).ready(function() {
+    var apiUrl = 'http://' + window.location.host + '/api/students/';       
+    // Make a GET request to the REST API
+    $.get(apiUrl, function(userData) {
+ 
+        $('#usersTable').DataTable({
+            data: userData,
+            columns: [
+                { data: 'id' },
+                { data: 'name' },
+                { data: 'courses',
+                render: function(data, type, row) {
+                    var str='';
+                    $.each(data, function(i, item) {            
+                        str += 'Name: ' + item.name + ' ID: ' + item.id + ' <br/>';
+                    });              
+                    return str;
+                }
+            }
+            ]
+        });
+    })
+    .fail(function() {              
+        $('#itemsList').html('<li>Failed to load data from the API.</li>');
+    });
+    });
+
+    
+    </script>
+
+
+<div id="itemsList"></div>
+
+</body>
+</html>

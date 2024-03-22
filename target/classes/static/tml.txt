@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students and their courses.</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>       
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+</head>
+<body>
+<h2>List of Students and their courses:</h2>
+       
+    <script>
+    $(document).ready(function() {
+
+    var csrfToken = $("meta[name='_csrf']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+    // Set up AJAX to include the CSRF token in the header of every request
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrfHeader, csrfToken);
+        }
+    });
+
+    var apiUrl = 'http://' + window.location.host + '/students/';   
+    
+    var jsonData ={'id':4,'name':'student4','courses':[{'id':1,'name':'course1'},{'id':2,'name':'course2'}]};
+
+    $.ajax({
+        url: apiUrl, 
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(jsonData),
+        success: function(response) {
+            console.log('Success:', response);
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });  
+});  
+    
+    </script>
+
+
+<div id="itemsList"></div>
+
+</body>
+</html>
