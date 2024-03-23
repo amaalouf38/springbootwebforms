@@ -41,7 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf(csrf -> csrf.disable()) // working on enabling it for ajax requests
+                // .csrf(csrf -> csrf.disable()) // working on enabling it for ajax requests
                 .authorizeHttpRequests(
                         auth -> {
                             auth.requestMatchers("/authentication/**", "/css/**", "/js/**", "/images/**")

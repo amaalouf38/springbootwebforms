@@ -16,20 +16,25 @@
 
     var apiUrl = 'http://' + window.location.host + '/api/students/';   
     
-    var jsonData ={'id':4,'name':'student4','courses':[{'id':1,'name':'course1'},{'id':2,'name':'course2'}]};
-
+    var jsonData ={'id':5,'name':'student5','courses':[{'id':2,'name':'course2'},{'id':3,'name':'course3'}]};
+    
+    $.get("/csrf", function(csrfToken) {
     $.ajax({
         url: apiUrl, 
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(jsonData),
+        beforeSend: function(xhr) {            
+            xhr.setRequestHeader(csrfToken.headerName, csrfToken.token);
+        },
         success: function(response) {
             console.log('Success:', response);
         },
         error: function(xhr, status, error) {
             console.log('Error:', error);
         }
-    });  
+    }); 
+});  
 });  
     
     </script>
