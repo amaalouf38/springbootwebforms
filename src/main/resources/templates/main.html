@@ -22,7 +22,9 @@
     
     <script>
     $(document).ready(function() {
-    var apiUrl = 'http://' + window.location.host + '/api/students/';       
+    //var apiUrl = 'http://' + window.location.host + '/api/students/';       
+    var apiUrl = './api/students/';   
+        
     // Make a GET request to the REST API
     $.get(apiUrl, function(userData) {
  

@@ -14,9 +14,10 @@
     <script>
     $(document).ready(function() {
 
-    var apiUrl = 'http://' + window.location.host + '/api/students/';   
+    //var apiUrl = 'http://' + window.location.host + '/api/students/';   
+    var apiUrl = '../api/students/';   
     
-    var jsonData ={'id':5,'name':'student5','courses':[{'id':2,'name':'course2'},{'id':3,'name':'course3'}]};
+    var jsonData ={'id':6,'name':'student6','courses':[{'id':2,'name':'course2'},{'id':3,'name':'course3'}]};
     
     $.get("/csrf", function(csrfToken) {
     $.ajax({
